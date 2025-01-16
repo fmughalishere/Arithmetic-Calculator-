@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Arithmetic Operations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input {
+      margin: 5px;
+      padding: 8px;
+      width: 100px;
+    }
+    button {
+      margin: 5px;
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Basic Arithmetic Calculator</h1>
+  
+  <div>
+    <input type="text" id="num1" placeholder="Enter number 1">
+    <input type="text" id="num2" placeholder="Enter number 2">
+  </div>
+  
+  <div>
+    <button id="btnAdd">Add</button>
+    <button id="btnSubtract">Subtract</button>
+    <button id="btnMultiply">Multiply</button>
+    <button id="btnDivide">Divide</button>
+  </div>
+  
+  <p id="resultOutput" class="error"></p>
+  
+  <script>
+    // Get references to elements
+    const num1Input = document.getElementById('num1');
+    const num2Input = document.getElementById('num2');
+    const resultOutput = document.getElementById('resultOutput');
+    
+    const buttons = {
+      btnAdd: (a, b) => a + b,
+      btnSubtract: (a, b) => a - b,
+      btnMultiply: (a, b) => a * b,
+      btnDivide: (a, b) => b !== 0 ? a / b : 'Cannot divide by zero',
+    };
+
+    // Add event listeners for each button
+    Object.keys(buttons).forEach(buttonId => {
+      document.getElementById(buttonId).addEventListener('click', () => {
+        const num1 = parseFloat(num1Input.value);
+        const num2 = parseFloat(num2Input.value);
+
+        if (isNaN(num1) || isNaN(num2)) {
+          resultOutput.textContent = 'Please enter valid numbers';
+          resultOutput.classList.add('error');
+        } else {
+          const result = buttons[buttonId](num1, num2);
+          resultOutput.textContent = `Result: ${result}`;
+          resultOutput.classList.remove('error');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
